@@ -1,20 +1,18 @@
-import mongoose from "mongoose";
-import config from "../config/config";
-import pkg from "mongoose";
-import { IUser } from "../user/users.model";
+import { IUser } from "../models/models";
+import { userModelType, userModel } from "../models/models";
 
-mongoose.connect(`${config.dbConnection}`).catch((err) => new Error(err))
+export interface IUserContainer extends User { }
 
-class Container {
-  collection: mongoose.Model<{ [x: string]: any; }, {}, {}, {}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, { [x: string]: any; }>>;
+class User {
+  collection: userModelType;
 
-  constructor(collectionName: 'user', schema: pkg.Schema) {
-    this.collection = mongoose.model(collectionName, schema);
+  constructor() {
+    this.collection = userModel;
   }
 
   save = async (user: IUser) => {
-    const newUser: mongoose.Document = new this.collection(user);
-    
+    const newUser = new this.collection(user);
+
     try {
       return await newUser.save();
     } catch (err) {
@@ -29,6 +27,18 @@ class Container {
       return err;
     }
   };
+
+  getAllPaginated = async (page: number, usersPerPage: number) => {
+    try {
+      return await this.collection
+        .find()
+        .sort({ author: 1 })
+        .skip((page * usersPerPage))
+        .limit(usersPerPage)
+    } catch (err) {
+      return err
+    }
+  }
 }
 
-export default Container
+export default User
