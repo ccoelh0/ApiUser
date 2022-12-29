@@ -1,14 +1,17 @@
 import User from "../database/container";
-import { IUser, userModelType } from "../models/models";
+import { IUser } from "../models/models";
 import { IUserContainer } from "../database/container";
+import UserDTO, { TypeUserDTO, IUserDTO } from "../dto/userDTO";
 
 export interface IUserService extends UserService { }
 
 class UserService {
   user: IUserContainer;
+  userDTO: TypeUserDTO;
 
   constructor() {
     this.user = new User()
+    this.userDTO = UserDTO
   }
 
   register = async (newUser: IUser): Promise<IUser | any> => {
@@ -21,20 +24,21 @@ class UserService {
 
   getAllUsers = async (): Promise<IUser | any> => {
     try {
-      return await this.user.getAll() as IUser[]
+      return await this.user.getAll()
     } catch (err) {
       return err
     }
   }
 
-  getAllUsersPaginated = async (page: number, usersPerPage: number): Promise<IUser[] | any> => {
+  getAllUsersPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[] | any> => {
     try {
-      return await this.user.getAllPaginated(page, usersPerPage) as IUser[]
+      const users: IUser[] = await this.user.getAllPaginated(page, usersPerPage, username)
+      const dto: IUserDTO[] = users.map((u: IUser) => new this.userDTO(u))
+      return dto
     } catch (err) {
       return err
     }
   }
-
 }
 
 export default UserService

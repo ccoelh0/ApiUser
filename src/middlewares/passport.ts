@@ -10,7 +10,7 @@ const user: IUserService = new UserService()
 passport.use(
   "register",
   new LocalStrategy(
-    async (username: string, password: string, done) => {
+    async (username, password, done) => {
       const userInDB: IUser[] = await user.getAllUsers();
       const isUserInDB = userInDB.find((u: IUser) => u.username === username);
 

@@ -28,13 +28,20 @@ class User {
     }
   };
 
-  getAllPaginated = async (page: number, usersPerPage: number) => {
+  getAllPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[] | any> => {
+    console.log(username)
     try {
-      return await this.collection
-        .find()
-        .sort({ author: 1 })
-        .skip((page * usersPerPage))
-        .limit(usersPerPage)
+      if (username !== undefined) {
+        return await this.collection
+          .find({username})
+          .skip((page * usersPerPage))
+          .limit(usersPerPage)
+      } else {
+        return await this.collection
+          .find()
+          .skip((page * usersPerPage))
+          .limit(usersPerPage)
+      }
     } catch (err) {
       return err
     }

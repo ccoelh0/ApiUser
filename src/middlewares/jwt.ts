@@ -21,14 +21,14 @@ export const ensureToken = (req: any, res: Response, next: NextFunction) => {
 }
 
 export const signJwt = (res: Response, next: NextFunction, user: IUser) => {
-  jwt.sign(user, config.jwtKey, (err, data) => {
+  jwt.sign(user, config.jwtKey, (err, token) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      res.status(200).send({ data: 'Login confirmed', token: data })
+      res.status(200).json({ data: 'Login confirmed' })
     }
+    next()
   })
-  next()
 }
 
 export const verifyJwt = async (token: string) => jwt.verify(token, config.jwtKey)
