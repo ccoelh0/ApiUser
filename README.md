@@ -17,6 +17,10 @@ Test para aplicar funcionalidades de registro, login y listado de usuarios
 Download zip
 npm install
 npm run dev // to run with nodemon
+
+sino: 
+npm run build
+npm start
 ```
 
 ## Tener en cuenta
