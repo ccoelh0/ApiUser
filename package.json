@@ -2,12 +2,12 @@
   "name": "apiuser",
   "version": "1.0.0",
   "description": "API focused on user creation and login",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon src/index.ts",
     "build": "vc --cwd build",
     "tsc": "tsc",
-    "start": "npm run tsc && node build/server.js",
+    "start": "npm run tsc && node build/index.js",
     "test": "mocha test/index.test.js",
     "deploy": "vercel deploy --prod"
   },
