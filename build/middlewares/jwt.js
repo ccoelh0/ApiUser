@@ -34,9 +34,8 @@ const signJwt = (res, next, user) => {
             res.sendStatus(403);
         }
         else {
-            token !== undefined && res.status(200).json({ data: 'Login confirmed' }).setHeader('Authorization', token);
+            res.status(200).json({ data: 'Login confirmed', token });
         }
-        next();
     });
 };
 exports.signJwt = signJwt;

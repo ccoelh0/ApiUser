@@ -10,6 +10,7 @@ const jwt_1 = require("../middlewares/jwt");
 const router = express_1.default.Router();
 const controller = new user_1.default();
 router.get('/', (_, res) => res.json({ data: 'Api is working!' }));
+router.get('/index', (_, res) => res.sendFile('/public/login.html', { root: '.' }));
 router.post('/api/register', passport_1.default.authenticate('register'), controller.register);
 router.post('/api/login', passport_1.default.authenticate('login'), controller.login);
 router.get('/api/users', jwt_1.ensureToken, controller.getUsers);
