@@ -13,7 +13,7 @@ databaseConnection()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session(config.session));
-app.use('/api', router)
+app.use('/', router)
 app.use(handleError)
 
 app.listen(config.port, () => console.log(`Server is running in port ${config.port}`))

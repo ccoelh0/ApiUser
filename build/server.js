@@ -15,6 +15,6 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, express_session_1.default)(config_1.default.session));
-app.use('/api', routes_1.default);
+app.use('/', routes_1.default);
 app.use(handleError_1.default);
 app.listen(config_1.default.port, () => console.log(`Server is running in port ${config_1.default.port}`));
