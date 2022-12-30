@@ -18,7 +18,7 @@ class User {
                 return yield newUser.save();
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.getAll = () => __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +26,7 @@ class User {
                 return yield this.collection.find();
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.getAllPaginated = (page, usersPerPage, username) => __awaiter(this, void 0, void 0, function* () {
@@ -45,7 +45,7 @@ class User {
                 }
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.collection = models_1.userModel;

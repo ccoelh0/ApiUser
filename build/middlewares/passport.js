@@ -41,7 +41,7 @@ passport_1.default.use("login", new LocalStrategy((username, password, done) => 
     const find = userInDB.find((u) => u.username === username);
     if (!find || !(yield bcrypt_1.default.compare(password.toString(), find.password)))
         return done("User or password incorrect");
-    return done(null, find);
+    done(null, find);
 })));
 passport_1.default.serializeUser((user, done) => done(null, user));
 passport_1.default.deserializeUser((username, done) => __awaiter(void 0, void 0, void 0, function* () {

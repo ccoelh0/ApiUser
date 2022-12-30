@@ -47,7 +47,7 @@ passport.use(
     if (!find || !(await bcrypt.compare(password.toString(), find.password)))
       return done("User or password incorrect");
 
-    return done(null, find);
+    done(null, find);
   })
 );
 

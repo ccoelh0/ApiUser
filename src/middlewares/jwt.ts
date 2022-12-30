@@ -2,14 +2,9 @@ import { Request, Response, NextFunction } from 'express'
 import { IUser } from '../models/models'
 import config from '../config/config'
 import jwt from 'jsonwebtoken'
-import { verify } from 'crypto'
-
-enum headers {
-  authorization = 'authorization'
-}
 
 export const ensureToken = (req: any, res: Response, next: NextFunction) => {
-  const bearerHeader = req.headers[headers.authorization]
+  const bearerHeader = req.headers['authorization']
   if (bearerHeader !== undefined) {
     const bearer = bearerHeader.split(" ")
     const bearerToken = bearer[1]
@@ -25,7 +20,7 @@ export const signJwt = (res: Response, next: NextFunction, user: IUser) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      res.status(200).json({ data: 'Login confirmed' })
+      token !== undefined && res.status(200).json({ data: 'Login confirmed' }).setHeader('Authorization', token)
     }
     next()
   })

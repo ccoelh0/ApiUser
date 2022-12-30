@@ -28,9 +28,9 @@ class UserController {
             const usersPerPage = 3;
             const findByUsername = req.query.username !== undefined;
             try {
-                (0, jwt_1.verifyJwt)(req.token);
+                (0, jwt_1.verifyJwt)(req['token']);
                 if (findByUsername) {
-                    return res.status(200).json(yield this.userService.getAllUsersPaginated(page, usersPerPage, req.query.username));
+                    return res.status(200).json(yield this.userService.getAllUsersPaginated(page, usersPerPage, `${req.query.username}`));
                 }
                 else {
                     const users = yield this.userService.getAllUsersPaginated(page, usersPerPage);

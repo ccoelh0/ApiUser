@@ -15,12 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyJwt = exports.signJwt = exports.ensureToken = void 0;
 const config_1 = __importDefault(require("../config/config"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var headers;
-(function (headers) {
-    headers["authorization"] = "authorization";
-})(headers || (headers = {}));
 const ensureToken = (req, res, next) => {
-    const bearerHeader = req.headers[headers.authorization];
+    const bearerHeader = req.headers['authorization'];
     if (bearerHeader !== undefined) {
         const bearer = bearerHeader.split(" ");
         const bearerToken = bearer[1];
@@ -38,7 +34,7 @@ const signJwt = (res, next, user) => {
             res.sendStatus(403);
         }
         else {
-            res.status(200).json({ data: 'Login confirmed' });
+            token !== undefined && res.status(200).json({ data: 'Login confirmed' }).setHeader('Authorization', token);
         }
         next();
     });

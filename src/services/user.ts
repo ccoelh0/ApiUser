@@ -14,29 +14,31 @@ class UserService {
     this.userDTO = UserDTO
   }
 
-  register = async (newUser: IUser): Promise<IUser | any> => {
+  register = async (newUser: IUser): Promise<IUserDTO> => {
     try {
-      return await this.user.save(newUser) as IUser
+      const created = await this.user.save(newUser)
+      return new UserDTO(created)
     } catch (err) {
-      return err
+      throw new Error(`Something happened: ${err}`)
     }
   }
 
-  getAllUsers = async (): Promise<IUser | any> => {
+  getAllUsers = async (): Promise<IUser[]> => {
     try {
       return await this.user.getAll()
     } catch (err) {
-      return err
+      throw new Error(`Something happened: ${err}`)
+
     }
   }
 
-  getAllUsersPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[] | any> => {
+  getAllUsersPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUserDTO[]> => {
     try {
       const users: IUser[] = await this.user.getAllPaginated(page, usersPerPage, username)
       const dto: IUserDTO[] = users.map((u: IUser) => new this.userDTO(u))
       return dto
     } catch (err) {
-      return err
+      throw new Error(`Something happened: ${err}`)
     }
   }
 }

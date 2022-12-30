@@ -18,10 +18,11 @@ class UserService {
     constructor() {
         this.register = (newUser) => __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.user.save(newUser);
+                const created = yield this.user.save(newUser);
+                return new userDTO_1.default(created);
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.getAllUsers = () => __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +30,7 @@ class UserService {
                 return yield this.user.getAll();
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.getAllUsersPaginated = (page, usersPerPage, username) => __awaiter(this, void 0, void 0, function* () {
@@ -39,7 +40,7 @@ class UserService {
                 return dto;
             }
             catch (err) {
-                return err;
+                throw new Error(`Something happened: ${err}`);
             }
         });
         this.user = new container_1.default();

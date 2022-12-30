@@ -10,29 +10,29 @@ class User {
     this.collection = userModel;
   }
 
-  save = async (user: IUser) => {
+  save = async (user: IUser): Promise<IUser> => {
     const newUser = new this.collection(user);
 
     try {
       return await newUser.save();
     } catch (err) {
-      return err;
+      throw new Error(`Something happened: ${err}`)
     }
   };
 
-  getAll = async () => {
+  getAll = async (): Promise<IUser[]> => {
     try {
       return await this.collection.find();
     } catch (err) {
-      return err;
+      throw new Error(`Something happened: ${err}`)
     }
   };
 
-  getAllPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[] | any> => {
+  getAllPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[]> => {
     try {
       if (username !== undefined) {
         return await this.collection
-          .find({username})
+          .find({ username })
           .skip((page * usersPerPage))
           .limit(usersPerPage)
       } else {
@@ -42,7 +42,7 @@ class User {
           .limit(usersPerPage)
       }
     } catch (err) {
-      return err
+      throw new Error(`Something happened: ${err}`)
     }
   }
 }
