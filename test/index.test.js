@@ -29,15 +29,15 @@ describe('TEST API', () => {
   describe('Login', () => {
     describe('Try to login with valid data', async () => {
       it('Response should be: "Login confirmed"', async () => {
-        const user = {username: 'coelhoagustin1@gmail.com', password: 'abc'}
+        const user = { username: 'coelhoagustin1@gmail.com', password: 'abc' }
         const res = await request.post(`${api}/login`).send(user)
         expect(res.body.data).to.eql('Login confirmed')
       })
     })
 
     describe('Try to login with invalid data', async () => {
-      it('Response should be: "Login confirmed"', async () => {
-        const user = {username: 'coelhoagustin1@gmail.com', password: 'abcd'}
+      it('Status should be 500', async () => {
+        const user = { username: 'coelhoagustin1@gmail.com', password: 'abcd' }
         const res = await request.post(`${api}/login`).send(user)
         expect(res.status).to.eql(500)
       })
