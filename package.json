@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "start": "node build/server.js",
-    "build": "tsc",
+    "start": "tsc && node build/server.js",
     "test": "mocha test/index.test.js"
   },
   "author": "Agustin Coelho (github: ccoelh0)",
