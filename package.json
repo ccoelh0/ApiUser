@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.ts",
     "build": "vc --cwd build",
     "tsc": "tsc",
-    "start": "npm run tsc && node build/index.js",
+    "start": "node build/index.js",
     "test": "mocha test/index.test.js",
     "deploy": "vercel deploy --prod"
   },
