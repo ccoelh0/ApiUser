@@ -2,7 +2,7 @@
   "version": 2,
   "name": "Agustin Coelho",
   "alias": ["ccoelh0"],
-  "builds": [{ "src": "build/index.js", "use": "@vercel/node" }],
+  "builds": [{ "src": "/.*", "use": "@vercel/node" }],
   "routes": [{
     "headers": {
         "Access-Control-Allow-Origin": "*",
