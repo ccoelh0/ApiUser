@@ -22,7 +22,7 @@ npm run dev // to run with nodemon
 ## Tener en cuenta
 - Los test estan programados para correrse de forma local con el comando 'npm run test'
 - El deploy se realizo en Vercel: https://api-user-flax.vercel.app/ -> aunque es preferible correr el proyecto de forma local dado que se hizo
-un mini frontend para hacer mas facil probar las funcionalidades (el cual por problemas que vercel no pude despelgar bien)
+un mini frontend para hacer mas facil probar las funcionalidades (el cual por problemas que vercel no pude desplegar bien)
 
 ## Endpoints: 
 - '/index' -> trae un html para probar funcionalidades
