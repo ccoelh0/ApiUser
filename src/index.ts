@@ -11,6 +11,7 @@ const app = express()
 databaseConnection()
 
 app.use(express.json());
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(session(config.session));
 app.use('/', router)

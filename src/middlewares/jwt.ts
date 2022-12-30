@@ -20,9 +20,8 @@ export const signJwt = (res: Response, next: NextFunction, user: IUser) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      token !== undefined && res.status(200).json({ data: 'Login confirmed' }).setHeader('Authorization', token)
+      res.status(200).json({ data: 'Login confirmed', token })
     }
-    next()
   })
 }
 

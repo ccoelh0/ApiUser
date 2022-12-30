@@ -29,9 +29,10 @@ class UserController {
     const findByUsername = req.query.username !== undefined
 
     try {
-      verifyJwt(req.token)
+      verifyJwt(req['token'])
       if (findByUsername) {
-        return res.status(200).json(await this.userService.getAllUsersPaginated(page, usersPerPage, `${req.query.username}`))
+        const users = await this.userService.getAllUsersPaginated(page, usersPerPage, `${req.query.username}`)
+        return res.status(200).json(users)
       } else {
         const users: IUserDTO[] = await this.userService.getAllUsersPaginated(page, usersPerPage)
         return res.status(200).json(users)
