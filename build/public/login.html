@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <form id="register" onsubmit="return false">
+      <h1>Register</h1>
+      <label for="usernameRegister">Email</label>
+      <input type="text" name="usernameRegister" id="usernameRegister">
+      <br>
+      <label for="passwordRegister">Password</label>
+      <input type="text" name="passwordRegister" id="passwordRegister">
+      <br>
+      <button type="submit">Enviar</button>
+      <span id="registerMsg"></span>
+    </form>
+    <br>
+
+    <form id="login" onsubmit="return false">
+      <h1>Login</h1>
+      <label for="username">Email</label>
+      <input type="text" name="username" id="username">
+      <br>
+      <label for="password">Password</label>
+      <input type="text" name="password" id="password">
+      <br>
+      <button type="submit">Enviar</button>
+    </form>
+    <br>
+
+    <div style="display: none;" id="users">
+      
+    </div>
+    <div  style="display: none;" id="pagination">
+      <button id="before">Pagina anterior</button>
+      <div id='page'></div>
+      <button id="after">Pagina siguiente</button>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const login = document.getElementById("login");
+  const register = document.getElementById("register");
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+  const usernameRegister = document.getElementById("usernameRegister");
+  const passwordRegister = document.getElementById("passwordRegister");
+  const msgRegister = document.getElementById("registerMsg")
+  const users = document.getElementById('users')
+  const currentPage = document.getElementById('page')
+  const beforePage = document.getElementById('before')
+  const afterPage = document.getElementById('after')
+  const pagination = document.getElementById('pagination')
+
+  let token = ''
+  let page = 0
+
+  const submitLogin = () => {
+    const data = {
+      username: username.value,
+      password: password.value,
+    };
+
+    axios
+      .post("/api/login", data)
+      .then((res) => {
+        token = res.data.token
+        getUsers()
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const submitRegister = () => {
+    const data = {
+      username: usernameRegister.value,
+      password: passwordRegister.value,
+    };
+
+    axios
+      .post("/api/register", data)
+      .then((res) => msgRegister.innerText = res.data.data)
+      .catch((err) => msgRegister.innerText = 'Usuario ya registrado');
+  }
+
+  const getUsers = () => {
+    axios.get('/api/users', {
+      params: { page },
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
+      .then(res => {
+        users.style.display = 'block'
+        users.innerHTML = res.data.map(x => `<div>${x.username}</div>`).join(" ")
+        currentPage.innerText = `Pagina actual: ${page}`
+        pagination.style.display = 'block'
+      })
+      .catch(err => console.log(err))
+  }
+
+  login.addEventListener("submit", (e) => {
+    e.preventDefault()
+    submitLogin()
+  });
+
+  register.addEventListener("submit", (e) => {
+    e.preventDefault()
+    submitRegister()
+  });
+
+  beforePage.addEventListener('click', (e) => {
+    if (page > 0) page -= 1
+    getUsers()
+  })
+
+  afterPage.addEventListener('click', (e) => {
+    page += 1
+    getUsers()
+  })
+
+</script>
+
+</html>
