@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "Agustin Coelho",
+  "alias": ["ccoelh0"],
+  "builds": [{ "src": "build/index.js", "use": "@vercel/node" }],
+  "routes": [{
+    "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+    },
+    "src": "/.*", "dest": "build/index.js" }
+  ]
+}
