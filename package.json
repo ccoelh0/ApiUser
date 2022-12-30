@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "tsc",
-    "start": "npm run build && node build/server.js",
+    "build": "vc --cwd build",
+    "tsc": "tsc",
+    "start": "npm run tsc && node build/server.js",
     "test": "mocha test/index.test.js",
     "deploy": "vercel deploy --prod"
   },
