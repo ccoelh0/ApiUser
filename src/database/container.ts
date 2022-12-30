@@ -29,7 +29,6 @@ class User {
   };
 
   getAllPaginated = async (page: number, usersPerPage: number, username?: string): Promise<IUser[] | any> => {
-    console.log(username)
     try {
       if (username !== undefined) {
         return await this.collection
