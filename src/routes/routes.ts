@@ -6,7 +6,9 @@ import { ensureToken } from '../middlewares/jwt'
 const router = express.Router()
 const controller: IUserController = new UserController()
 
-router.get('/', (_, res) => res.sendFile('/public/login.html'))
+router.get('/', (_, res: Response) => res.json({ data: 'Api is working!' }))
+router.get('/index', (_, res) => res.sendFile('/public/login.html', {root: '.'}))
+
 router.post('/api/register', passport.authenticate('register'), controller.register)
 router.post('/api/login', passport.authenticate('login'), controller.login)
 router.get('/api/users', ensureToken, controller.getUsers)
