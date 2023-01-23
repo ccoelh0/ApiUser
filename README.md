@@ -16,23 +16,13 @@ Test para aplicar funcionalidades de registro, login y listado de usuarios
 ```sh
 Download zip
 npm install
-npm run dev // to run with nodemon
-
-sino: 
-npm run build
 npm start
 ```
 
 ## Tener en cuenta
-- Los test estan programados para correrse de forma local con el comando 'npm run test'
-- El deploy se realizo en Vercel: https://api-user-flax.vercel.app/ -> aunque es preferible correr el proyecto de forma local dado que se hizo
-un mini frontend para hacer mas facil probar las funcionalidades (el cual por problemas con vercel no pude desplegar bien)
+- Esta landing es para mostrar el desarrollo realizado para la empresa bajo la firma de MangooDev. 
+- TODOS LOS DERECHOS SON RESERVADOS PARA ZERIGO 
 
-## Endpoints: 
-- '/index' -> trae un html para probar funcionalidades
-- '/api/register' -> registro de usuarios
-- '/api/login' -> login de usuarios
-- /api/users' -> trae la lista de usuarios y/o filtra por usuario
 
 ## Autor: 
 ```sh
